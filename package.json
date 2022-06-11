@@ -1,0 +1,21 @@
+{
+  "name": "shop-api-gateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "invoke:getProductsList": "sls invoke local --function getProductsList",
+    "invoke:getProductsById": "sls invoke local --function getProductsById --data '{ \"pathParameters\": {\"productId\":\"2\"}}'",
+    "deploy": "sls deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-zenby:zenby/shop-api-gateway.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-bundle": "^5.3.0"
+  }
+}
