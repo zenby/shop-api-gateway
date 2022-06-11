@@ -23,7 +23,7 @@ export const handler = async (event) => {
     return {
       headers,
       statusCode: 404,
-      body: "Product was not found",
+      body: JSON.stringify({ message: "Product was not found" }),
     };
   } catch (e) {
     return {
