@@ -1,0 +1,80 @@
+swagger: "2.0"
+info:
+  description: "This is a sample for Products gateway."
+  version: "1.0.0"
+  title: "Swagger Products"
+
+host: "e0655w3jr6.execute-api.eu-central-1.amazonaws.com"
+basePath: "/dev"
+tags:
+  - name: "products"
+    description: "Products"
+
+schemes:
+  - "https"
+  - "http"
+
+paths:
+  /products:
+    get:
+      tags:
+        - "products"
+      summary: "Products list"
+      description: "Returns all Products"
+      operationId: "getProductsList"
+      produces:
+        - "application/json"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Product"
+        "404":
+          description: "Products were not found"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /products/{productId}:
+    get:
+      tags:
+        - "products"
+      summary: "Find Product by ID"
+      description: "Returns a single product"
+      operationId: "getProductById"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "productId"
+          in: "path"
+          description: "ID of a product to return"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        "200":
+          description: "Successful operation"
+          schema:
+            $ref: "#/definitions/Product"
+        "404":
+          description: "Product was not found"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  Product:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      title:
+        type: "string"
+      price:
+        type: "string"
+      description:
+        type: "string"
+  ErrorResponse:
+    type: "object"
+    properties:
+      message:
+        type: "string"
