@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest test --watchAll",
+    "test": "jest test",
+    "test:watch": "jest test --watchAll",
     "invoke:getProductsList": "sls invoke local --function getProductsList",
     "invoke:getProductsById": "sls invoke local --function getProductsById --data '{ \"pathParameters\": {\"productId\":\"2\"}}'",
     "deploy": "sls deploy"
