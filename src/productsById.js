@@ -6,30 +6,22 @@ const headers = {
 };
 
 export const handler = async (event) => {
-  try {
-    const productService = new ProductService();
-    const id = event.pathParameters.productId;
+  const productService = new ProductService();
+  const id = event.pathParameters.productId;
 
-    const product = await productService.getProductById(id);
+  const product = await productService.getProductById(id);
 
-    if (product) {
-      return {
-        headers,
-        statusCode: 200,
-        body: JSON.stringify(product),
-      };
-    }
-
+  if (product) {
     return {
       headers,
-      statusCode: 404,
-      body: JSON.stringify({ message: "Product was not found" }),
-    };
-  } catch (e) {
-    return {
-      headers,
-      statusCode: 404,
-      body: e.message,
+      statusCode: 200,
+      body: JSON.stringify(product),
     };
   }
+
+  return {
+    headers,
+    statusCode: 404,
+    body: JSON.stringify({ message: "Product was not found" }),
+  };
 };

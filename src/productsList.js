@@ -6,20 +6,12 @@ const headers = {
 };
 
 export const handler = async () => {
-  try {
-    const productService = new ProductService();
-    const products = await productService.getAllProducts();
+  const productService = new ProductService();
+  const products = await productService.getAllProducts();
 
-    return {
-      headers,
-      statusCode: 200,
-      body: JSON.stringify(products),
-    };
-  } catch (e) {
-    return {
-      headers,
-      statusCode: 404,
-      body: e.message,
-    };
-  }
+  return {
+    headers,
+    statusCode: 200,
+    body: JSON.stringify(products),
+  };
 };
