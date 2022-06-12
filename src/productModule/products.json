@@ -1,7 +1,7 @@
 [
   {
     "id": "1",
-    "title": "Crypto icon",
+    "title": "NFT ",
     "description": "string",
     "price": "123"
   },
@@ -19,13 +19,13 @@
   },
   {
     "id": "4",
-    "title": "Cyber icon",
+    "title": "NFT candle",
     "description": "string",
     "price": "63"
   },
   {
     "id": "5",
-    "title": "Cyber token icon",
+    "title": "NFT Cyber token icon",
     "description": "string",
     "price": "78"
   },
@@ -37,7 +37,7 @@
   },
   {
     "id": "7",
-    "title": "Crypto blockchain catholic poster",
+    "title": "NFT blockchain catholic poster",
     "description": "string",
     "price": "666"
   },
