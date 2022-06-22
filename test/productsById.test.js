@@ -27,7 +27,7 @@ describe("productById", () => {
   });
 
   it("returns 404 with message if product was not found", async () => {
-    const { headers, statusCode, body } = await handler({ pathParameters: { productId: 44 } });
+    const { headers, statusCode, body } = await handler({ pathParameters: { productId: mockedProduct.id } });
 
     expect(headers).toBeDefined();
     expect(statusCode).toBe(404);
