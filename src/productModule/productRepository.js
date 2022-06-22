@@ -53,10 +53,16 @@ class ProductRepository {
       ]);
       await connection.query("COMMIT");
 
-      return productId;
+      return { productId };
     } catch (e) {
       await connection.query("ROLLBACK");
-      throw e;
+
+      // key duplication error code
+      if (e.code === "23505") {
+        throw Error(`Product with title ${product.title} already exist`);
+      } else {
+        throw e;
+      }
     } finally {
       connection.release();
     }

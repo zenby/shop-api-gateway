@@ -18,14 +18,18 @@ const productSchema = {
 
 export const handler = async (event) => {
   const product = JSON.parse(event.body);
-  const error = validateData(product, productSchema);
+  const validationError = validateData(product, productSchema);
 
-  if (error) {
-    return prepareResponse(422, { message: error });
+  if (validationError) {
+    return prepareResponse(422, { message: validationError });
   }
 
-  const productService = new ProductService();
-  const productId = await productService.createProduct(product);
+  try {
+    const productService = new ProductService();
+    const { productId } = await productService.createProduct(product);
 
-  return prepareResponse(201, { productId });
+    return prepareResponse(201, { productId });
+  } catch (e) {
+    return prepareResponse(400, { message: e.message || e });
+  }
 };
