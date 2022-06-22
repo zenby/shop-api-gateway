@@ -10,3 +10,11 @@ export function prepareResponse(statusCode, data) {
     body: JSON.stringify(data),
   };
 }
+
+export function handleUnexpectedError(handler) {
+  return async function (...args) {
+    return Promise.resolve(handler(...args)).catch((e) => {
+      return prepareResponse(500, { message: e.message || "Server error" });
+    });
+  };
+}

@@ -1,11 +1,11 @@
 import ProductService from "./productModule";
-import { prepareResponse } from "./utils/responseUtils";
+import { handleUnexpectedError, prepareResponse } from "./utils/responseUtils";
 import { checkRequiredEnvValues } from "./utils/envUtils";
 import { logger } from "./utils/logger";
 
 checkRequiredEnvValues();
 
-export const handler = async (event) => {
+export const handler = handleUnexpectedError(async (event) => {
   const { productId } = event.pathParameters;
   logger("info", "productById called", { productId });
   const productService = new ProductService();
@@ -17,4 +17,4 @@ export const handler = async (event) => {
 
   logger("info", "productById was not found");
   return prepareResponse(404, { message: "Product was not found" });
-};
+});

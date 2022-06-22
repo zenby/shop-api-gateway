@@ -1,5 +1,5 @@
 import ProductService from "./productModule";
-import { prepareResponse } from "./utils/responseUtils";
+import { handleUnexpectedError, prepareResponse } from "./utils/responseUtils";
 import { checkRequiredEnvValues } from "./utils/envUtils";
 import { validateData } from "./utils/validationUtils";
 import { logger } from "./utils/logger";
@@ -17,7 +17,7 @@ const productSchema = {
   required: ["title", "description", "price"],
 };
 
-export const handler = async (event) => {
+export const handler = handleUnexpectedError(async (event) => {
   const product = JSON.parse(event.body);
   logger("info", "createProduct called", { product });
   const validationError = validateData(product, productSchema);
@@ -35,4 +35,4 @@ export const handler = async (event) => {
     logger("error", "createProduct error", { product });
     return prepareResponse(400, { message: e.message || e });
   }
-};
+});
