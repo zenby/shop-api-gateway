@@ -11,6 +11,6 @@ export const handler = async () => {
   return {
     headers,
     statusCode: 200,
-    body: products,
+    body: JSON.stringify(products),
   };
 };

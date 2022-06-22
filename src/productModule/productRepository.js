@@ -2,6 +2,7 @@ import { Pool } from "pg";
 
 class ProductRepository {
   constructor() {
+    console.log("pool started");
     this.pool = new Pool({
       host: process.env.DB_HOST,
       port: Number(process.env.DB_PORT) || 5432,
@@ -9,6 +10,7 @@ class ProductRepository {
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
     });
+    console.log("pool finished");
   }
 
   async getAllProducts() {

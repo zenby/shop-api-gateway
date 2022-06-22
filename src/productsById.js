@@ -14,13 +14,13 @@ export const handler = async (event) => {
     return {
       headers,
       statusCode: 200,
-      body: product,
+      body: JSON.stringify(product),
     };
   }
 
   return {
     headers,
     statusCode: 404,
-    body: { message: "Product was not found" },
+    body: JSON.stringify({ message: "Product was not found" }),
   };
 };
