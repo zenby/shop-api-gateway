@@ -1,4 +1,4 @@
-export function checkRequiredConfigValues() {
+export function checkRequiredEnvValues() {
   const requiredConfigValues = ["DB_HOST", "DB_PORT", "DB_NAME", "DB_USERNAME", "DB_PASSWORD"];
 
   const missingEntries = requiredConfigValues.filter((name) => !process.env[name]);

@@ -1,8 +1,8 @@
 import ProductService from "./productModule";
 import { headers } from "./utils/corsUtils";
-import { checkRequiredConfigValues } from "./utils/envUtils";
+import { checkRequiredEnvValues } from "./utils/envUtils";
 
-checkRequiredConfigValues();
+checkRequiredEnvValues();
 
 export const handler = async () => {
   const productService = new ProductService();

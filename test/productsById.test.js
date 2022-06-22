@@ -4,7 +4,7 @@ import ProductRepository from "../src/productModule/productRepository";
 const mockedProduct = { id: 2 };
 
 jest.mock("../src/utils/envUtils", () => ({
-  checkRequiredConfigValues: jest.fn(),
+  checkRequiredEnvValues: jest.fn(),
 }));
 
 jest.mock("../src/productModule/productRepository");

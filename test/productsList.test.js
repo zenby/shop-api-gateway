@@ -3,7 +3,7 @@ import { handler } from "../src/productsList";
 const mockedProducts = [{ id: 1 }, { id: 2 }];
 
 jest.mock("../src/utils/envUtils", () => ({
-  checkRequiredConfigValues: jest.fn(),
+  checkRequiredEnvValues: jest.fn(),
 }));
 
 jest.mock("../src/productModule/productRepository", function () {
