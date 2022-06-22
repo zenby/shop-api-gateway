@@ -7,5 +7,5 @@ export function validateData(data, schema) {
 }
 
 function getValidationMessage(errors) {
-  return errors.map((err) => (err.name === "type" ? err.stack : err.message)).join(", ");
+  return errors.map((err) => (err.name === "type" ? `${err.instance} ${err.message}` : err.message)).join(", ");
 }

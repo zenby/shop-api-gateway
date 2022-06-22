@@ -24,13 +24,13 @@ describe("createProduct", () => {
   });
 
   it("returns 422 when fields have wrong type", async () => {
-    const product = { title: "title", price: "string", description: "desc" };
+    const product = { title: "title", price: "price", description: "desc" };
     const event = { body: JSON.stringify(product) };
     const { body, headers, statusCode } = await handler(event);
 
     expect(headers).toBeDefined();
     expect(statusCode).toBe(422);
-    expect(JSON.parse(body).message).toBe("instance.price is not of a type(s) number");
+    expect(JSON.parse(body).message).toBe("price is not of a type(s) number");
   });
 
   it("returns 201 with product id for valid product data", async () => {
