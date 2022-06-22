@@ -1,7 +1,7 @@
 import { validate } from "jsonschema";
 
-export function validateData(product, schema) {
-  const validationResult = validate(product, schema);
+export function validateData(data, schema) {
+  const validationResult = validate(data, schema);
 
   return validationResult.errors.length ? getValidationMessage(validationResult.errors) : null;
 }
