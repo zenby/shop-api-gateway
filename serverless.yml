@@ -16,6 +16,13 @@ custom:
       - pg-native
 
 functions:
+  createProduct:
+    handler: src/createProduct.handler
+    environment: ${file(.env.yml)}
+    events:
+      - http:
+          path: /products
+          method: post
   getProductsList:
     handler: src/productsList.handler
     environment: ${file(.env.yml)}

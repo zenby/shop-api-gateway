@@ -37,6 +37,30 @@ class ProductRepository {
       connection.release();
     }
   }
+
+  async createProduct(product) {
+    const connection = await this.pool.connect();
+    try {
+      await connection.query("BEGIN");
+      const result = await connection.query(
+        "INSERT INTO product (title, description, price) values ($1, $2, $3) RETURNING id;",
+        [product.title, product.description, product.price]
+      );
+      const productId = result.rows[0].id;
+      await connection.query("INSERT INTO store (product_id, amount) values ($1, $2);", [
+        productId,
+        product.amount || 0,
+      ]);
+      await connection.query("COMMIT");
+
+      return productId;
+    } catch (e) {
+      await connection.query("ROLLBACK");
+      throw e;
+    } finally {
+      connection.release();
+    }
+  }
 }
 
 export default ProductRepository;
