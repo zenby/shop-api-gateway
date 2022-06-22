@@ -1,5 +1,6 @@
 import ProductService from "./productModule";
 import { headers } from "./utils/corsUtils";
+import { checkRequiredConfigValues } from "./utils/envUtils";
 
 checkRequiredConfigValues();
 
