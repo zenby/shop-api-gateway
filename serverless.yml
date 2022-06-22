@@ -10,15 +10,22 @@ provider:
 plugins:
   - serverless-bundle
 
+custom:
+  bundle:
+    ignorePackages: 
+      - pg-native
+
 functions:
   getProductsList:
     handler: src/productsList.handler
+    environment: ${file(.env.yml)}
     events:
       - http:
           path: /products
           method: get
   getProductsById:
     handler: src/productsById.handler
+    environment: ${file(.env.yml)}
     events:
       - http:
           path: /products/{productId}

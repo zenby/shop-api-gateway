@@ -1,27 +1,26 @@
 import ProductService from "./productModule";
+import { headers } from "./utils/corsUtils";
+import { checkRequiredConfigValues } from "./utils/envUtils";
 
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Credentials": true,
-};
+checkRequiredConfigValues();
 
 export const handler = async (event) => {
   const productService = new ProductService();
-  const id = event.pathParameters.productId;
+  const { productId } = event.pathParameters;
 
-  const product = await productService.getProductById(id);
+  const product = await productService.getProductById(productId);
 
   if (product) {
     return {
       headers,
       statusCode: 200,
-      body: JSON.stringify(product),
+      body: product,
     };
   }
 
   return {
     headers,
     statusCode: 404,
-    body: JSON.stringify({ message: "Product was not found" }),
+    body: { message: "Product was not found" },
   };
 };

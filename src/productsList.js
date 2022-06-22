@@ -1,9 +1,7 @@
 import ProductService from "./productModule";
+import { headers } from "./utils/corsUtils";
 
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Credentials": true,
-};
+checkRequiredConfigValues();
 
 export const handler = async () => {
   const productService = new ProductService();
@@ -12,6 +10,6 @@ export const handler = async () => {
   return {
     headers,
     statusCode: 200,
-    body: JSON.stringify(products),
+    body: products,
   };
 };
