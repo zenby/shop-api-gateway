@@ -1,21 +1,36 @@
 import { handler } from "../src/productsById";
+import ProductRepository from "../src/productModule/productRepository";
+
+const mockedProduct = { id: 2 };
+
+jest.mock("../src/utils/envUtils", () => ({
+  checkRequiredConfigValues: jest.fn(),
+}));
+
+jest.mock("../src/productModule/productRepository");
 
 describe("productById", () => {
-  it("returns 200 with data if product exists", async () => {
-    const productId = "3";
-    const result = await handler({ pathParameters: { productId } });
+  beforeAll(() => {
+    ProductRepository.mockImplementationOnce(() => ({
+      getProductById: jest.fn(() => mockedProduct).mockImplementationOnce(() => mockedProduct),
+    })).mockImplementationOnce(() => ({
+      getProductById: jest.fn(() => null),
+    }));
+  });
 
-    expect(result.headers).toBeDefined();
-    expect(result.statusCode).toBe(200);
-    expect(JSON.parse(result.body).id).toBe(productId);
+  it("returns 200 with data if product exists", async () => {
+    const { headers, statusCode, body } = await handler({ pathParameters: { productId: mockedProduct.id } });
+
+    expect(headers).toBeDefined();
+    expect(statusCode).toBe(200);
+    expect(JSON.parse(body).id).toBe(mockedProduct.id);
   });
 
   it("returns 404 with message if product was not found", async () => {
-    const productId = "55";
-    const result = await handler({ pathParameters: { productId } });
+    const { headers, statusCode, body } = await handler({ pathParameters: { productId: 44 } });
 
-    expect(result.headers).toBeDefined();
-    expect(result.statusCode).toBe(404);
-    expect(JSON.parse(result.body).message).toBe("Product was not found");
+    expect(headers).toBeDefined();
+    expect(statusCode).toBe(404);
+    expect(JSON.parse(body).message).toBe("Product was not found");
   });
 });
