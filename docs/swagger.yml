@@ -46,8 +46,8 @@ paths:
         - "application/json"
       parameters:
         - in: body
-          name: user
-          description: The user to create.
+          name: product data
+          description: The product to create.
           schema:
             $ref: "#/definitions/Product"
       responses:
