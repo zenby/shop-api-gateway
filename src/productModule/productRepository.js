@@ -15,7 +15,7 @@ class ProductRepository {
     const connection = await this.pool.connect();
     try {
       const allProducts = (
-        await connection.query("SELECT * FROM product INNER JOIN store ON store.product_id = product.id;")
+        await connection.query("SELECT * FROM product INNER JOIN store ON store.product_id = product.id")
       ).rows;
 
       return allProducts;
@@ -28,7 +28,7 @@ class ProductRepository {
     const connection = await this.pool.connect();
     try {
       const result = await connection.query(
-        "SELECT * FROM product INNER JOIN store ON store.product_id = product.id AND product.id = $1;",
+        "SELECT id, title, description, price, amount FROM product INNER JOIN store ON store.product_id = product.id AND product.id = $1",
         [id]
       );
 
