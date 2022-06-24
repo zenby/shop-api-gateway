@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "This is a sample for Products gateway."
+  description: "This is a sample for Products gateway testing."
   version: "1.0.0"
   title: "Swagger Products"
 
