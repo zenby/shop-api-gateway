@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest test",
     "test:watch": "jest test --watchAll",
-    "docs": "nodemon docs",
+    "docs": "node docs",
+    "docs:watch": "nodemon docs",
     "invoke:getProductsList": "sls invoke local --function getProductsList",
     "invoke:getProductsById": "sls invoke local --function getProductsById --data '{ \"pathParameters\": {\"productId\":\"45965f1c-81c9-494d-88af-c7dc15c7b1b7\"}}'",
     "deploy": "sls deploy"
