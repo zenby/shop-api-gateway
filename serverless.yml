@@ -1,11 +1,18 @@
 service: aws-shop-gateway-api
 frameworkVersion: "3"
+useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs14.x
   profile: rss
   region: eu-central-1
+  environment:
+    DB_HOST: ${env:DB_HOST}
+    DB_PORT: ${env:DB_PORT}
+    DB_NAME: ${env:DB_NAME}
+    DB_USERNAME: ${env:DB_USERNAME}
+    DB_PASSWORD: ${env:DB_PASSWORD}
 
 plugins:
   - serverless-bundle
@@ -18,21 +25,18 @@ custom:
 functions:
   createProduct:
     handler: src/createProduct.handler
-    environment: ${file(.env.yml)}
     events:
       - http:
           path: /products
           method: post
   getProductsList:
     handler: src/productsList.handler
-    environment: ${file(.env.yml)}
     events:
       - http:
           path: /products
           method: get
   getProductsById:
     handler: src/productsById.handler
-    environment: ${file(.env.yml)}
     events:
       - http:
           path: /products/{productId}
