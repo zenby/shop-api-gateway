@@ -1,4 +1,4 @@
-import ProductService from "./productModule";
+import ProductService from "./productService";
 import { handleUnexpectedError, prepareResponse } from "./utils/responseUtils";
 import { checkRequiredEnvValues } from "./utils/envUtils";
 import { validateData } from "./utils/validationUtils";

@@ -6,7 +6,7 @@ jest.mock("../src/utils/envUtils", () => ({
   checkRequiredEnvValues: jest.fn(),
 }));
 
-jest.mock("../src/productModule/productRepository", function () {
+jest.mock("../src/productService/productRepository", function () {
   return () => ({
     getAllProducts: jest.fn(() => mockedProducts),
   });
