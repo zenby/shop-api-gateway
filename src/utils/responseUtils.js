@@ -4,11 +4,7 @@ const headers = {
 };
 
 export function prepareResponse(statusCode, data = {}) {
-  return {
-    headers,
-    statusCode,
-    body: JSON.stringify(data),
-  };
+  return prepareTextResponse(statusCode, JSON.stringify(data));
 }
 
 export function prepareTextResponse(statusCode, data) {

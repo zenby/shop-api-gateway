@@ -57,19 +57,19 @@ functions:
           existing: true
 
   createProduct:
-    handler: src/createProduct.handler
+    handler: src/productService/createProduct.handler
     events:
       - http:
           path: /products
           method: post
   getProductsList:
-    handler: src/productsList.handler
+    handler: src/productService/productsList.handler
     events:
       - http:
           path: /products
           method: get
   getProductsById:
-    handler: src/productsById.handler
+    handler: src/productService/productsById.handler
     events:
       - http:
           path: /products/{productId}

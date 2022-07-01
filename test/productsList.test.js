@@ -1,4 +1,4 @@
-import { handler } from "../src/productsList";
+import { handler } from "../src/productService/productsList";
 
 const mockedProducts = [{ id: 1 }, { id: 2 }];
 
@@ -6,7 +6,7 @@ jest.mock("../src/utils/envUtils", () => ({
   checkRequiredEnvValues: jest.fn(),
 }));
 
-jest.mock("../src/productService/productRepository", function () {
+jest.mock("../src/productService/productModule/productRepository", function () {
   return () => ({
     getAllProducts: jest.fn(() => mockedProducts),
   });
