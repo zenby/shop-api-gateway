@@ -1,13 +1,13 @@
-import { handler } from "../src/productService/productsById";
-import ProductRepository from "../src/productService/productModule/productRepository";
+import { handler } from "../../src/productService/productsById";
+import ProductRepository from "../../src/productService/productModule/productRepository";
 
 const mockedProduct = { id: "1ac5310f-1025-4196-b49e-5188d1f0f63c" };
 
-jest.mock("../src/utils/envUtils", () => ({
+jest.mock("../../src/utils/envUtils", () => ({
   checkRequiredEnvValues: jest.fn(),
 }));
 
-jest.mock("../src/productService/productModule/productRepository");
+jest.mock("../../src/productService/productModule/productRepository");
 
 describe("productById", () => {
   beforeAll(() => {

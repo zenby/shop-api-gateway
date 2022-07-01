@@ -1,7 +1,7 @@
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { handler } from "../src/importService/importProductsFile";
+import { handler } from "../../src/importService/importProductsFile";
 
-jest.mock("../src/utils/envUtils", () => ({
+jest.mock("../../src/utils/envUtils", () => ({
   checkRequiredEnvValues: jest.fn(),
 }));
 
