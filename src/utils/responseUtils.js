@@ -4,12 +4,16 @@ const headers = {
 };
 
 export function prepareResponse(statusCode, data = {}) {
-  return prepareTextResponse(statusCode, JSON.stringify(data));
+  return {
+    headers,
+    statusCode,
+    body: JSON.stringify(data),
+  };
 }
 
 export function prepareTextResponse(statusCode, data) {
   return {
-    headers,
+    headers: { ...headers, ["content-type"]: "text/plain" },
     statusCode,
     body: data,
   };
