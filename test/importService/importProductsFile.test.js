@@ -21,7 +21,7 @@ describe("importProductsFile", () => {
     process.env.BUCKET_NAME = bucket;
   });
 
-  it("returns 200 with data", async () => {
+  it("returns 200 with signed url", async () => {
     const event = { queryStringParameters: { name: "filename" } };
     const { body, headers, statusCode } = await handler(event);
 
