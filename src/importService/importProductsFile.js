@@ -11,7 +11,6 @@ export const handler = handleUnexpectedError(async (event) => {
   const { name } = event.queryStringParameters;
   const command = new PutObjectCommand({ Bucket: process.env.BUCKET_NAME, Key: `uploaded/${name}` });
   const signedUrl = await getSignedUrl(client, command, { expiresIn: 3600 });
-  console.log(signedUrl);
 
   return prepareTextResponse(200, signedUrl);
 });
