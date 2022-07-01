@@ -13,16 +13,49 @@ provider:
     DB_NAME: ${env:DB_NAME}
     DB_USERNAME: ${env:DB_USERNAME}
     DB_PASSWORD: ${env:DB_PASSWORD}
+    BUCKET_NAME: ${env:BUCKET_NAME}
+    AWS_S3_REGION: ${env:AWS_S3_REGION}
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: s3:ListBucket
+          Resource:
+            - arn:aws:s3:::shop-uploads-s3
+        - Effect: Allow
+          Action: s3:*
+          Resource:
+            - arn:aws:s3:::shop-uploads-s3/*
 
 plugins:
   - serverless-bundle
-
 custom:
   bundle:
     ignorePackages:
       - pg-native
 
 functions:
+  importProductsFile:
+    handler: src/importService/importProductsFile.handler
+    events:
+      - http:
+          path: /import
+          method: get
+          request:
+            parameters:
+              querystrings:
+                name: true
+  importFileParser:
+    handler: src/importService/importFileParser.handler
+    events:
+      - s3:
+          bucket: shop-uploads-s3
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true
+
   createProduct:
     handler: src/createProduct.handler
     events:
