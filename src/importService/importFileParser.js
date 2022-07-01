@@ -13,12 +13,12 @@ export const handler = handleUnexpectedError(async (event) => {
     const { key } = record.s3.object;
     const { Body } = await client.send(new GetObjectCommand({ Bucket, Key: key }));
 
-    let results = [];
+    const parseResults = [];
     for await (const chunk of Body.pipe(csvParser())) {
-      results.push(chunk);
+      parseResults.push(chunk);
     }
 
-    console.log(results);
+    console.log(parseResults);
 
     await client.send(
       new CopyObjectCommand({

@@ -6,13 +6,12 @@ import { handleUnexpectedError, prepareTextResponse } from "../utils/responseUti
 checkRequiredEnvValues();
 
 const client = new S3Client({ region: process.env.AWS_S3_REGION });
-const Bucket = process.env.BUCKET_NAME;
 
 export const handler = handleUnexpectedError(async (event) => {
   const { name } = event.queryStringParameters;
-  const command = new PutObjectCommand({ Bucket, Key: `uploaded/${name}` });
-  const url = await getSignedUrl(client, command, { expiresIn: 3600 });
-  console.log(url);
+  const command = new PutObjectCommand({ Bucket: process.env.BUCKET_NAME, Key: `uploaded/${name}` });
+  const signedUrl = await getSignedUrl(client, command, { expiresIn: 3600 });
+  console.log(signedUrl);
 
-  return prepareTextResponse(200, url);
+  return prepareTextResponse(200, signedUrl);
 });
