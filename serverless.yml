@@ -30,6 +30,10 @@ provider:
 
 plugins:
   - serverless-bundle
+
+package:
+  individually: true
+
 custom:
   bundle:
     ignorePackages:
