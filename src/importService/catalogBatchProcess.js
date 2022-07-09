@@ -1,16 +1,15 @@
+import { PublishCommand, SNSClient } from "@aws-sdk/client-sns";
 import ProductService from "../productService/productModule";
 import { productSchema } from "../productService/productModule/productSchema";
 import { checkRequiredEnvValues } from "../utils/envUtils";
 import { handleUnexpectedError, prepareTextResponse } from "../utils/responseUtils";
 import { validateData } from "../utils/validationUtils";
-import { PublishCommand, SNSClient } from "@aws-sdk/client-sns";
 
 checkRequiredEnvValues();
 
 export const handler = handleUnexpectedError(async (event) => {
-  const products = event.Records.map(({ body }) => parseProductData(body));
-
   const productService = new ProductService();
+  const products = event.Records.map(({ body }) => parseProductData(body));
 
   for (const product of products) {
     const validationError = validateData(product, productSchema);
@@ -19,7 +18,6 @@ export const handler = handleUnexpectedError(async (event) => {
     }
   }
 
-  console.log(products);
   await sendProductsImportEmail(products);
 
   return prepareTextResponse(200);
