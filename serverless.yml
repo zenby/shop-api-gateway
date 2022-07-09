@@ -1,0 +1,25 @@
+service: aws-shop-gateway-api
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  profile: rss
+  region: eu-central-1
+
+plugins:
+  - serverless-bundle
+
+functions:
+  getProductsList:
+    handler: src/productsList.handler
+    events:
+      - http:
+          path: /products
+          method: get
+  getProductsById:
+    handler: src/productsById.handler
+    events:
+      - http:
+          path: /products/{productId}
+          method: get
