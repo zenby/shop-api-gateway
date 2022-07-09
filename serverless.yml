@@ -15,10 +15,16 @@ provider:
     DB_PASSWORD: ${env:DB_PASSWORD}
     BUCKET_NAME: ${env:BUCKET_NAME}
     AWS_S3_REGION: ${env:AWS_S3_REGION}
+    SQS_URL:
+      Ref: SQSQueue
 
   iam:
     role:
       statements:
+        - Effect: Allow
+          Action: sqs:*
+          Resource:
+            - Fn::GetAtt: [SQSQueue, Arn]
         - Effect: Allow
           Action: s3:ListBucket
           Resource:
@@ -31,15 +37,23 @@ provider:
 plugins:
   - serverless-bundle
 
-package:
-  individually: true
+# package:
+#   individually: true
 
 custom:
   bundle:
     ignorePackages:
       - pg-native
 
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: shop-catalog-sqs-queue
+
 functions:
+  # importService
   importProductsFile:
     handler: src/importService/importProductsFile.handler
     events:
@@ -59,7 +73,16 @@ functions:
           rules:
             - prefix: uploaded/
           existing: true
-
+  catalogBatchProcess:
+    handler: src/importService/catalogBatchProcess.handler
+    events:
+      - sqs:
+          batchSize: 5
+          arn:
+            Fn::GetAtt:
+              - SQSQueue
+              - Arn
+  # productService
   createProduct:
     handler: src/productService/createProduct.handler
     events:
