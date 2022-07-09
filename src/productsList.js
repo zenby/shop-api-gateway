@@ -1,17 +1,14 @@
 import ProductService from "./productModule";
+import { handleUnexpectedError, prepareResponse } from "./utils/responseUtils";
+import { checkRequiredEnvValues } from "./utils/envUtils";
+import { logger } from "./utils/logger";
 
-const headers = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Credentials": true,
-};
+checkRequiredEnvValues();
 
-export const handler = async () => {
+export const handler = handleUnexpectedError(async () => {
+  logger("info", "productsList called");
   const productService = new ProductService();
   const products = await productService.getAllProducts();
 
-  return {
-    headers,
-    statusCode: 200,
-    body: JSON.stringify(products),
-  };
-};
+  return prepareResponse(200, products);
+});

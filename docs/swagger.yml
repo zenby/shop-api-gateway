@@ -1,10 +1,10 @@
 swagger: "2.0"
 info:
-  description: "This is a sample for Products gateway."
+  description: "This is a sample for Products gateway API"
   version: "1.0.0"
   title: "Swagger Products"
 
-host: "e0655w3jr6.execute-api.eu-central-1.amazonaws.com"
+host: "omdfergjvk.execute-api.eu-central-1.amazonaws.com"
 basePath: "/dev"
 tags:
   - name: "products"
@@ -29,9 +29,34 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Product"
+              allOf:
+                - $ref: "#/definitions/Id"
+                - $ref: "#/definitions/Product"
         "404":
           description: "Products were not found"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      tags:
+        - "products"
+      summary: "Create new product"
+      description: "Create new product"
+      operationId: "createProduct"
+      produces:
+        - "application/json"
+      parameters:
+        - in: body
+          name: product data
+          description: The product to create.
+          schema:
+            $ref: "#/definitions/Product"
+      responses:
+        "201":
+          description: "Successful create"
+          schema:
+            $ref: "#/definitions/Id"
+        "422":
+          description: "Validation error message"
           schema:
             $ref: "#/definitions/ErrorResponse"
 
@@ -55,23 +80,36 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Product"
+            allOf:
+              - $ref: "#/definitions/Id"
+              - $ref: "#/definitions/Product"
         "404":
           description: "Product was not found"
           schema:
             $ref: "#/definitions/ErrorResponse"
+        "422":
+          description: "Validation parameter error"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
 definitions:
-  Product:
+  Id:
     type: "object"
     properties:
       id:
         type: "string"
+  Product:
+    type: "object"
+    properties:
       title:
-        type: "string"
-      price:
         type: "string"
       description:
         type: "string"
+      price:
+        type: "number"
+      amount:
+        type: "number"
+
   ErrorResponse:
     type: "object"
     properties:
