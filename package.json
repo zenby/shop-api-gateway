@@ -10,6 +10,8 @@
     "docs:watch": "nodemon docs",
     "invoke:getProductsList": "sls invoke local --function getProductsList",
     "invoke:getProductsById": "sls invoke local --function getProductsById --data '{ \"pathParameters\": {\"productId\":\"45965f1c-81c9-494d-88af-c7dc15c7b1b7\"}}'",
+    "invoke:importProductsFile": "sls invoke local --function importProductsFile --data '{ \"queryStringParameters\": {\"name\":\"file.csv\"}}'",
+    "invoke:importFileParser": "sls invoke local --function importFileParser",
     "deploy": "sls deploy"
   },
   "repository": {
@@ -26,10 +28,13 @@
     "serverless-bundle": "^5.3.0"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.120.0",
+    "@aws-sdk/s3-request-presigner": "^3.120.0",
+    "csv-parser": "^3.0.0",
     "express": "^4.18.1",
-    "swagger-ui-express": "^4.4.0",
-    "yamljs": "^0.3.0",
     "jsonschema": "^1.4.1",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "swagger-ui-express": "^4.4.0",
+    "yamljs": "^0.3.0"
   }
 }

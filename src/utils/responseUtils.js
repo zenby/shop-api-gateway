@@ -3,11 +3,19 @@ const headers = {
   "Access-Control-Allow-Credentials": true,
 };
 
-export function prepareResponse(statusCode, data) {
+export function prepareResponse(statusCode, data = {}) {
   return {
     headers,
     statusCode,
     body: JSON.stringify(data),
+  };
+}
+
+export function prepareTextResponse(statusCode, data) {
+  return {
+    headers: { ...headers, ["content-type"]: "text/plain" },
+    statusCode,
+    body: data,
   };
 }
 

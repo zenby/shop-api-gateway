@@ -1,4 +1,4 @@
-import { handleUnexpectedError, prepareResponse } from "../src/utils/responseUtils";
+import { handleUnexpectedError, prepareResponse } from "../../src/utils/responseUtils";
 
 const successHandlerData = { data: 12 };
 async function handlerWithoutError(event) {

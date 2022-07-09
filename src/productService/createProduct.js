@@ -1,8 +1,8 @@
 import ProductService from "./productModule";
-import { handleUnexpectedError, prepareResponse } from "./utils/responseUtils";
-import { checkRequiredEnvValues } from "./utils/envUtils";
-import { validateData } from "./utils/validationUtils";
-import { logger } from "./utils/logger";
+import { handleUnexpectedError, prepareResponse } from "../utils/responseUtils";
+import { checkRequiredEnvValues } from "../utils/envUtils";
+import { validateData } from "../utils/validationUtils";
+import { logger } from "../utils/logger";
 
 checkRequiredEnvValues();
 

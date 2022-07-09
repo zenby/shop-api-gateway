@@ -1,12 +1,12 @@
-import { handler } from "../src/createProduct";
+import { handler } from "../../src/productService/createProduct";
 
 const mockedProduct = { productId: 1 };
 
-jest.mock("../src/utils/envUtils", () => ({
+jest.mock("../../src/utils/envUtils", () => ({
   checkRequiredEnvValues: jest.fn(),
 }));
 
-jest.mock("../src/productModule/productRepository", function () {
+jest.mock("../../src/productService/productModule/productRepository", function () {
   return () => ({
     createProduct: jest.fn(() => mockedProduct),
   });
