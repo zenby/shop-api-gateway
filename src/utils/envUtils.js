@@ -7,6 +7,8 @@ export function checkRequiredEnvValues() {
     "DB_PASSWORD",
     "BUCKET_NAME",
     "AWS_S3_REGION",
+    "SQS_URL",
+    "SNS_ARN",
   ];
 
   const missingEntries = requiredConfigValues.filter((name) => !process.env[name]);

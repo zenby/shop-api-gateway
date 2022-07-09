@@ -17,6 +17,8 @@ provider:
     AWS_S3_REGION: ${env:AWS_S3_REGION}
     SQS_URL:
       Ref: SQSQueue
+    SNS_ARN:
+      Ref: SNSTopic
 
   iam:
     role:
@@ -25,6 +27,10 @@ provider:
           Action: sqs:*
           Resource:
             - Fn::GetAtt: [SQSQueue, Arn]
+        - Effect: Allow
+          Action: sns:*
+          Resource:
+            - Ref: SNSTopic
         - Effect: Allow
           Action: s3:ListBucket
           Resource:
@@ -51,6 +57,27 @@ resources:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: shop-catalog-sqs-queue
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: create-product-topic
+    SNSSubsriptionAllProducts:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: zenbysel@gmail.com
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+    SNSSubsriptionExpensiveProducts:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: evgeniy.dainovich@gmail.com
+        Protocol: email
+        FilterPolicy:
+          is_expensive_product:
+            - "yes"
+        TopicArn:
+          Ref: SNSTopic
 
 functions:
   # importService
