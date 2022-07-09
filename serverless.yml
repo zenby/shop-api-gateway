@@ -43,8 +43,8 @@ provider:
 plugins:
   - serverless-bundle
 
-# package:
-#   individually: true
+package:
+  individually: true
 
 custom:
   bundle:
