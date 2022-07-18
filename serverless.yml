@@ -15,10 +15,22 @@ provider:
     DB_PASSWORD: ${env:DB_PASSWORD}
     BUCKET_NAME: ${env:BUCKET_NAME}
     AWS_S3_REGION: ${env:AWS_S3_REGION}
+    SQS_URL:
+      Ref: SQSQueue
+    SNS_ARN:
+      Ref: SNSTopic
 
   iam:
     role:
       statements:
+        - Effect: Allow
+          Action: sqs:*
+          Resource:
+            - Fn::GetAtt: [SQSQueue, Arn]
+        - Effect: Allow
+          Action: sns:*
+          Resource:
+            - Ref: SNSTopic
         - Effect: Allow
           Action: s3:ListBucket
           Resource:
@@ -39,7 +51,36 @@ custom:
     ignorePackages:
       - pg-native
 
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: shop-catalog-sqs-queue
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: create-product-topic
+    SNSSubsriptionAllProducts:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: zenbysel@gmail.com
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+    SNSSubsriptionExpensiveProducts:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: evgeniy.dainovich@gmail.com
+        Protocol: email
+        FilterPolicy:
+          is_expensive_product:
+            - "yes"
+        TopicArn:
+          Ref: SNSTopic
+
 functions:
+  # importService
   importProductsFile:
     handler: src/importService/importProductsFile.handler
     events:
@@ -59,7 +100,16 @@ functions:
           rules:
             - prefix: uploaded/
           existing: true
-
+  catalogBatchProcess:
+    handler: src/importService/catalogBatchProcess.handler
+    events:
+      - sqs:
+          batchSize: 5
+          arn:
+            Fn::GetAtt:
+              - SQSQueue
+              - Arn
+  # productService
   createProduct:
     handler: src/productService/createProduct.handler
     events:
