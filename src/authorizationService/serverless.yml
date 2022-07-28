@@ -1,0 +1,23 @@
+service: authorization-service
+frameworkVersion: "3"
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  profile: rss
+  region: eu-central-1
+  environment:
+    zenby: ${env:zenby}
+
+plugins:
+  - serverless-bundle
+
+custom:
+  bundle:
+    ignorePackages:
+      - pg-native
+
+functions:
+  basicAuthorizer:
+    handler: ./basicAuthorizer.handler

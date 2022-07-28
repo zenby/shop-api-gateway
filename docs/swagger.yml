@@ -28,11 +28,23 @@ paths:
           name: name
           description: The product to create
           type: "string"
+        - name: Authorization
+          in: header
+          description: An authorization header
+          type: string
       responses:
         "200":
           description: "Successful operation"
           schema:
             type: "string"
+        "403":
+          description: "Access Denied"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        "401":
+          description: "Unauthorized"
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /products:
     get:
       tags:
