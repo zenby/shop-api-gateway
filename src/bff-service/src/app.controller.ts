@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 function getRedirectUrl(params: Record<string, string>, query: Record<string, string>): string | undefined {
   const SERVICE_URLS = {
     products: process.env.PRODUCT_URL,
-    import: process.env.IMPORT_URL,
     cart: process.env.CART_URL,
   };
 
@@ -39,9 +38,9 @@ export class AppController {
     throw new HttpException('Cannot process request', HttpStatus.BAD_GATEWAY);
   }
 
-  @Put('/*')
+  @Post('/*')
   @Redirect()
-  updateProducts(@Param() params, @Query() query) {
+  createProducts(@Param() params, @Query() query) {
     const url = getRedirectUrl(params, query);
     if (url) {
       return { url };
@@ -50,9 +49,9 @@ export class AppController {
     throw new HttpException('Cannot process request', HttpStatus.BAD_GATEWAY);
   }
 
-  @Post('/*')
+  @Put('/*')
   @Redirect()
-  createProducts(@Param() params, @Query() query) {
+  updateProducts(@Param() params, @Query() query) {
     const url = getRedirectUrl(params, query);
     if (url) {
       return { url };

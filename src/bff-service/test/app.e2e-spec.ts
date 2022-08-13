@@ -30,13 +30,6 @@ describe('AppController (e2e)', () => {
         .expect('Location', `${process.env.PRODUCT_URL}/products/45965f1c-81c9-494d-88af-c7dc15c7b1b7`);
     });
 
-    it('import?name=parameter', () => {
-      return request(app.getHttpServer())
-        .get('/import?name=test.csv')
-        .expect(302)
-        .expect('Location', `${process.env.IMPORT_URL}/import?name=test.csv`);
-    });
-
     it('cart', () => {
       return request(app.getHttpServer()).get('/cart').expect(302).expect('Location', `${process.env.CART_URL}/cart`);
     });
