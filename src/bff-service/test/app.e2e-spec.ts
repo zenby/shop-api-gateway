@@ -40,7 +40,8 @@ describe('AppController (e2e)', () => {
   });
 
   afterEach(() => {
-    nock.restore();
+    nock.cleanAll();
+    app.close();
   });
 
   describe('GET /products', () => {
