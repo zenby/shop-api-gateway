@@ -6,7 +6,7 @@ on:
       - master
   pull_request:
     paths-ignore:
-      - "!src/bff-service/**"
+      - "src/bff-service/**"
     branches:
       - "task-**"
       - master
