@@ -18,26 +18,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Echo
-        run: pwd
-
-      - name: Show location
-        run: ls
-
-      - name: Go to bff service
-        run: cd src/bff-service
-
-      - name: Show bff path
-        run: pwd
-
       - name: Install Packages
         run: npm install
+        working-directory: ./src/bff-service
 
-      - name: Show location
-        run: ls
-
-      # - name: Lint
-      #   run: npm run lint
+      - name: Lint
+        run: npm run lint
+        working-directory: ./src/bff-service
 
       - name: Test
         run: npm run test
+        working-directory: ./src/bff-service
