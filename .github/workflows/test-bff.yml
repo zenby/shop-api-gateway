@@ -1,4 +1,4 @@
-name: Test bff service
+name: Test backend for frontend service
 
 on:
   push:
