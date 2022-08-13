@@ -36,7 +36,7 @@ describe("catalogBatchProcess", () => {
   });
 
   it("send email and but not create products when data is incorrect", async () => {
-    const products = [{ title: "title1", price: 2, amount: 2 }];
+    const products = [{ title: "title1", price: 2, amount: 2, image: "http://image.com" }];
     const { statusCode } = await handler(createEventWithBody(products));
 
     expect(statusCode).toBe(200);
@@ -56,7 +56,7 @@ describe("catalogBatchProcess", () => {
   });
 
   it("send email and create products when data is correct for cheap products", async () => {
-    const products = [{ title: "title2", description: "description2", price: 3, amount: 4 }];
+    const products = [{ title: "title2", description: "description2", price: 3, amount: 4, image: "http://image.com" }];
     const { statusCode } = await handler(createEventWithBody(products));
 
     expect(statusCode).toBe(200);
@@ -76,7 +76,9 @@ describe("catalogBatchProcess", () => {
   });
 
   it("send email and create products when data is correct for expensive products", async () => {
-    const products = [{ title: "title5", description: "description5", price: 600, amount: 7 }];
+    const products = [
+      { title: "title5", description: "description5", price: 600, amount: 7, image: "http://image.com" },
+    ];
     const { statusCode } = await handler(createEventWithBody(products));
 
     expect(statusCode).toBe(200);

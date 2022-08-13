@@ -1,4 +1,4 @@
-name: Test
+name: Test bff service
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
       - main
 
 jobs:
-  test:
+  bff-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
