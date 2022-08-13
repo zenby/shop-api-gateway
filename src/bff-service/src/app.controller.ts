@@ -30,7 +30,7 @@ export class AppController {
   @Get('/products')
   async getProducts() {
     const products = await this.appService.getProducts();
-    console.log(products);
+    console.log('products', products);
     return products;
   }
 
@@ -38,6 +38,7 @@ export class AppController {
   @Redirect()
   handleRedirects(@Param() params, @Query() query) {
     const url = getRedirectUrl(params, query);
+    console.log('redirect url', url);
     if (url) {
       return { url };
     }
