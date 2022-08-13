@@ -27,5 +27,5 @@ jobs:
         working-directory: ./src/bff-service
 
       - name: Test
-        run: npm run test
+        run: npm run test:e2e
         working-directory: ./src/bff-service
