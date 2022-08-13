@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as LRU from 'lru-cache';
 
 const cache = new LRU({
-  ttl: 1000 * 60 * 2, // 2 min
+  ttl: 1000 * 60 * 2, // 2 min time to live
 });
 
 const PRODUCTS_CACHE_KEY = 'products_cache_key';
