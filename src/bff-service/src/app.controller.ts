@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Query, Redirect } from '@nestjs/common';
+import { All, Controller, Get, HttpException, HttpStatus, Param, Query, Redirect } from '@nestjs/common';
 import { AppService } from './app.service';
 
 function getRedirectUrl(params: Record<string, string>, query: Record<string, string>): string | undefined {
@@ -33,42 +33,9 @@ export class AppController {
     return products;
   }
 
-  @Get('/*')
+  @All('/*')
   @Redirect()
-  getOtherStaff(@Param() params, @Query() query) {
-    const url = getRedirectUrl(params, query);
-    if (url) {
-      return { url };
-    }
-
-    throw new HttpException('Cannot process request', HttpStatus.BAD_GATEWAY);
-  }
-
-  @Post('/*')
-  @Redirect()
-  createProducts(@Param() params, @Query() query) {
-    const url = getRedirectUrl(params, query);
-    if (url) {
-      return { url };
-    }
-
-    throw new HttpException('Cannot process request', HttpStatus.BAD_GATEWAY);
-  }
-
-  @Put('/*')
-  @Redirect()
-  updateProducts(@Param() params, @Query() query) {
-    const url = getRedirectUrl(params, query);
-    if (url) {
-      return { url };
-    }
-
-    throw new HttpException('Cannot process request', HttpStatus.BAD_GATEWAY);
-  }
-
-  @Delete('/*')
-  @Redirect()
-  deleteProducts(@Param() params, @Query() query) {
+  handleRedirects(@Param() params, @Query() query) {
     const url = getRedirectUrl(params, query);
     if (url) {
       return { url };

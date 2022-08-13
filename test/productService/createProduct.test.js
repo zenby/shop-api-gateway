@@ -34,7 +34,13 @@ describe("createProduct", () => {
   });
 
   it("returns 201 with product id for valid product data", async () => {
-    const product = { title: "title", price: 22.22, description: "desc", amount: 4 };
+    const product = {
+      title: "title",
+      price: 22.22,
+      description: "desc",
+      amount: 4,
+      image: "https://images.unsplash.com/photo-1519173005431-c6fe836d46eb",
+    };
     const event = { body: JSON.stringify(product) };
     const { headers, statusCode } = await handler(event);
 

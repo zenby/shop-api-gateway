@@ -15,7 +15,9 @@ class ProductRepository {
     const connection = await this.pool.connect();
     try {
       const allProducts = (
-        await connection.query("SELECT id, title, description, price, amount FROM product INNER JOIN store ON store.product_id = product.id")
+        await connection.query(
+          "SELECT id, title, description, price, image, amount FROM product INNER JOIN store ON store.product_id = product.id"
+        )
       ).rows;
 
       return allProducts;
@@ -28,7 +30,7 @@ class ProductRepository {
     const connection = await this.pool.connect();
     try {
       const result = await connection.query(
-        "SELECT id, title, description, price, amount FROM product INNER JOIN store ON store.product_id = product.id AND product.id = $1",
+        "SELECT id, title, description, price, image, amount FROM product INNER JOIN store ON store.product_id = product.id AND product.id = $1",
         [id]
       );
 
@@ -43,8 +45,8 @@ class ProductRepository {
     try {
       await connection.query("BEGIN");
       const result = await connection.query(
-        "INSERT INTO product (title, description, price) values ($1, $2, $3) RETURNING id;",
-        [product.title, product.description, product.price]
+        "INSERT INTO product (title, description, price, image) values ($1, $2, $3, $4) RETURNING id;",
+        [product.title, product.description, product.price, product.image]
       );
       const productId = result.rows[0].id;
       await connection.query("INSERT INTO store (product_id, amount) values ($1, $2);", [
