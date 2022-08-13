@@ -4,12 +4,12 @@ on:
   push:
     branches:
       - master
-  pull_request:
-    paths:
-      - "src/bff-service/**"
-    branches:
-      - "task-**"
-      - master
+  # pull_request:
+  #   paths:
+  #     - "src/bff-service/**"
+  #   branches:
+  #     - "task-**"
+  #     - master
 
 jobs:
   bff-check:

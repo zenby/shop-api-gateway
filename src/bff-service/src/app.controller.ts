@@ -13,6 +13,7 @@ function getRedirectUrl(params: Record<string, string>, query: Record<string, st
     if (service) {
       const pathSuffix = path.startsWith('/') ? path : '/' + path;
       const search = new URLSearchParams(query);
+      console.log(pathSuffix);
       return SERVICE_URLS[service] + pathSuffix + (search.toString() ? '?' + search : '');
     }
   }
@@ -27,18 +28,15 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('/products')
+  @Get('products')
   async getProducts() {
-    const products = await this.appService.getProducts();
-    console.log('products', products);
-    return products;
+    return await this.appService.getProducts();
   }
 
-  @All('/*')
-  @Redirect()
+  @All('*')
+  @Redirect(undefined, 307)
   handleRedirects(@Param() params, @Query() query) {
     const url = getRedirectUrl(params, query);
-    console.log('redirect url', url);
     if (url) {
       return { url };
     }
