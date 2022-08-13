@@ -11,7 +11,7 @@ function getRedirectUrl(params: Record<string, string>, query: Record<string, st
   if (typeof path === 'string') {
     const service = Object.keys(SERVICE_URLS).find((s) => path.startsWith(s));
     if (service) {
-      const pathSuffix = path.startsWith('/') ? path.substring(path.indexOf('/')) : '/' + path;
+      const pathSuffix = path.startsWith('/') ? path : '/' + path;
       const search = new URLSearchParams(query);
       return SERVICE_URLS[service] + pathSuffix + (search.toString() ? '?' + search : '');
     }
@@ -27,9 +27,15 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @Get('/products')
+  async getProducts() {
+    const products = await this.appService.getProducts();
+    return products;
+  }
+
   @Get('/*')
   @Redirect()
-  getProducts(@Param() params, @Query() query) {
+  getOtherStaff(@Param() params, @Query() query) {
     const url = getRedirectUrl(params, query);
     if (url) {
       return { url };
