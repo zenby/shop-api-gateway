@@ -15,11 +15,13 @@ export class AppService {
   }
 
   async getProducts(): Promise<unknown[]> {
-    if (!cache.get(PRODUCTS_CACHE_KEY)) {
-      const { data } = await axios(`${process.env.PRODUCT_URL}/products`);
-      cache.set(PRODUCTS_CACHE_KEY, data);
+    let products: unknown[] = cache.get(PRODUCTS_CACHE_KEY);
+    if (!products) {
+      const request = await axios(`${process.env.PRODUCT_URL}/products`);
+      products = request.data;
+      cache.set(PRODUCTS_CACHE_KEY, products);
     }
 
-    return cache.get(PRODUCTS_CACHE_KEY);
+    return products;
   }
 }

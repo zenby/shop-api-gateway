@@ -30,6 +30,7 @@ export class AppController {
   @Get('/products')
   async getProducts() {
     const products = await this.appService.getProducts();
+    console.log(products);
     return products;
   }
 
