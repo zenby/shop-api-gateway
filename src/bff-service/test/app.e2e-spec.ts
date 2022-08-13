@@ -18,6 +18,15 @@ jest.mock('lru-cache', () => {
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  const oldProductUrl = process.env.PRODUCT_URL;
+
+  beforeAll(() => {
+    process.env.PRODUCT_URL = 'https://producturl.com';
+  });
+
+  afterAll(() => {
+    process.env.PRODUCT_URL = oldProductUrl;
+  });
 
   beforeEach(async () => {
     jest.resetAllMocks();
