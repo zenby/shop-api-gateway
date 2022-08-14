@@ -13,7 +13,6 @@ function getRedirectUrl(params: Record<string, string>, query: Record<string, st
     if (service) {
       const pathSuffix = path.startsWith('/') ? path : '/' + path;
       const search = new URLSearchParams(query);
-      console.log(pathSuffix);
       return SERVICE_URLS[service] + pathSuffix + (search.toString() ? '?' + search : '');
     }
   }

@@ -73,40 +73,40 @@ describe('AppController (e2e)', () => {
 
   describe('GET /*', () => {
     it('products/id', () => {
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .get('/products/45965f1c-81c9-494d-88af-c7dc15c7b1b7')
-        .expect(302)
+        .expect(307)
         .expect('Location', `${process.env.PRODUCT_URL}/products/45965f1c-81c9-494d-88af-c7dc15c7b1b7`);
     });
 
     it('cart', () => {
-      request(app.getHttpServer()).get('/cart').expect(302).expect('Location', `${process.env.CART_URL}/cart`);
+      return request(app.getHttpServer()).get('/cart').expect(307).expect('Location', `${process.env.CART_URL}/cart`);
     });
   });
 
   describe('POST /*', () => {
     it('products', () => {
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .post('/products')
-        .expect(302)
+        .expect(307)
         .expect('Location', `${process.env.PRODUCT_URL}/products`);
     });
   });
 
   describe('PUT /*', () => {
     it('products', () => {
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .put('/products/45965f1c-81c9-494d-88af-c7dc15c7b1b7')
-        .expect(302)
+        .expect(307)
         .expect('Location', `${process.env.PRODUCT_URL}/products/45965f1c-81c9-494d-88af-c7dc15c7b1b7`);
     });
   });
 
   describe('DELETE /*', () => {
     it('products', () => {
-      request(app.getHttpServer())
+      return request(app.getHttpServer())
         .delete('/products/45965f1c-81c9-494d-88af-c7dc15c7b1b7')
-        .expect(302)
+        .expect(307)
         .expect('Location', `${process.env.PRODUCT_URL}/products/45965f1c-81c9-494d-88af-c7dc15c7b1b7`);
     });
   });
