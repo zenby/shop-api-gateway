@@ -1,18 +1,18 @@
-name: Test lambdas
+name: Test backend for frontend service
 
 on:
   push:
     branches:
       - master
   pull_request:
-    paths-ignore:
+    paths:
       - "src/bff-service/**"
     branches:
       - "task-**"
       - master
 
 jobs:
-  lambda-check:
+  bff-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -20,6 +20,12 @@ jobs:
 
       - name: Install Packages
         run: npm install
+        working-directory: ./src/bff-service
+
+      - name: Lint
+        run: npm run lint
+        working-directory: ./src/bff-service
 
       - name: Test
-        run: npm run test
+        run: npm run test:e2e
+        working-directory: ./src/bff-service

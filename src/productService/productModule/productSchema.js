@@ -3,8 +3,9 @@ export const productSchema = {
   properties: {
     title: { type: "string" },
     description: { type: "string" },
+    image: { type: "string" },
     price: { type: "number" },
     amount: { type: "number" },
   },
-  required: ["title", "description", "price"],
+  required: ["title", "description", "price", "image"],
 };
